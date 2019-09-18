@@ -1,0 +1,25 @@
+{
+    "name": "daxter1987/framework",
+    "description": "A framework I am making",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "daxterbels",
+            "email": "daxter1987@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "daxter1987\\Framework\\FrameworkProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "daxter1987\\Framework\\": "src/"
+        }
+    }
+}
