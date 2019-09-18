@@ -52,7 +52,7 @@ class Create extends Command
 
         $results = app('db')->select($sql);
 
-        $class_file = file_get_contents('vendor/daxter1987/framework/resources/templates/class_template.php');
+        $class_file = file_get_contents('vendor/daxter1987/framework/src/resources/templates/class_template.php');
         $remove_array = ['id', 'created_at', 'updated_at', 'deleted_at'];
         $fillable_attributes = '';
 
