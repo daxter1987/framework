@@ -18,7 +18,7 @@ class Create extends Command
      *
      * @var string
      */
-    protected $description = 'Updates composer file in project to be able to use classes and components in vendor folder';
+    protected $description = 'Creates a class from a table on the framework\' rules';
 
     /**
      * Create a new command instance.
