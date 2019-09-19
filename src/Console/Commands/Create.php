@@ -79,8 +79,8 @@ class Create extends Command
         }
 
         $class_file = str_replace("'\$fillable_attributes'", $fillable_attributes, $class_file);
-        $class_file = str_replace("ClassName", $table_name, $class_file);
         $class_file = str_replace("ClassNameLowerCase", strtolower($table_name), $class_file);
+        $class_file = str_replace("ClassName", $table_name, $class_file);
 
         $handle = fopen("app/" . $table_name . ".php", 'w') or die('Cannot open file:  '.$table_name); //implicitly creates file
 
