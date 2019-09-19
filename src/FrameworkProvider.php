@@ -7,7 +7,7 @@ class FrameworkProvider extends ServiceProvider {
 
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__.'/routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->commands([
             Commands\Create::class,
             Commands\ConfigureComposer::class,

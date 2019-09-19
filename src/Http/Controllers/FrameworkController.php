@@ -12,9 +12,10 @@ class FrameworkController extends Controller {
      *
      * @return Response
      */
-    public function index()
+    public function index($model)
     {
-        //
+        $class = 'App\\' . ucfirst(strtolower($model));
+        return $class::paginate();
     }
 
     /**
@@ -32,9 +33,13 @@ class FrameworkController extends Controller {
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request, $model)
     {
-        //
+        $class = 'App\\' . ucfirst(strtolower($model));
+        $resource = $class::create($request->all());
+        return response([
+            "data" => $resource
+        ], 200);
     }
 
     /**
@@ -44,9 +49,15 @@ class FrameworkController extends Controller {
      * @param int $id
      * @return void
      */
-    public function show($class, $id)
+    public function show($model, $id)
     {
-        $resource = \App\$class::find($id);
+        $class = 'App\\' . ucfirst(strtolower($model));
+        $resource = $class::find($id);
+        if(empty($resource)){
+            return response([
+                "error" => "Resource not found"
+            ], 404);
+        }
         return response([
             "data" => $resource
         ], 200);
@@ -69,9 +80,19 @@ class FrameworkController extends Controller {
      * @param int $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request, $model, $id)
     {
-        //
+        $class = 'App\\' . ucfirst(strtolower($model));
+        $resource = $class::find($id);
+        if(empty($resource)){
+            return response([
+                "error" => "Resource not found"
+            ], 404);
+        }
+        $resource->update($request->all());
+        return response([
+            "data" => $resource
+        ], 200);
     }
 
     /**
@@ -80,8 +101,18 @@ class FrameworkController extends Controller {
      * @param int $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($model, $id)
     {
-        //
+        $class = 'App\\' . ucfirst(strtolower($model));
+        $resource = $class::find($id);
+        if(empty($resource)){
+            return response([
+                "error" => "Resource not found"
+            ], 404);
+        }
+        $resource->delete();
+        return response([
+            "data" => $resource
+        ], 200);
     }
 }
