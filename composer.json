@@ -8,7 +8,6 @@
             "email": "daxter1987@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {},
     "extra": {
         "laravel": {
