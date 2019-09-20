@@ -28,7 +28,7 @@ class FrameworkController extends Controller {
         return view('Framework::paginate', [
             'fields' => $fillable_attributes,
             'model' => $model,
-            'resources' => $class::paginate($request->per_page)
+            'resources' => $class::paginate(100)
         ]);
     }
 
@@ -43,7 +43,9 @@ class FrameworkController extends Controller {
         $temp_model = new $class();
         $fillable_attributes = $temp_model->getFillable();
 
-        $sql = "select column_name,data_type,is_nullable from information_schema.columns where table_name = '$model'";
+        $table = $temp_model->getTable();
+
+        $sql = "select column_name,data_type,is_nullable from information_schema.columns where table_name = '$table'";
         $results = app('db')->select($sql);
         $results = json_decode(json_encode($results), true);
 
@@ -51,10 +53,12 @@ class FrameworkController extends Controller {
             if(!in_array($column['column_name'], $fillable_attributes)){
                 unset($results[$index]);
             }else if($column['data_type'] === 'bigint'){
-                $class = 'App\\' . ucfirst(strtolower($column['column_name']));
+                $class = 'App\\' . str_replace(" ", "", ucwords(str_replace("_", " ", $column['column_name'])));
                 $results[$index]['options'] = $class::all();
             }
         }
+
+        Log::info(print_r($results,1));
 
         return view('Framework::create', [
             'fields' => $results,
@@ -126,7 +130,9 @@ class FrameworkController extends Controller {
         $temp_model = $class::find($id);
         $fillable_attributes = $temp_model->getFillable();
 
-        $sql = "select column_name,data_type,is_nullable from information_schema.columns where table_name = '$model'";
+        $table = $temp_model->getTable();
+
+        $sql = "select column_name,data_type,is_nullable from information_schema.columns where table_name = '$table'";
         $results = app('db')->select($sql);
         $results = json_decode(json_encode($results), true);
 
@@ -134,7 +140,7 @@ class FrameworkController extends Controller {
             if(!in_array($column['column_name'], $fillable_attributes)){
                 unset($results[$index]);
             }else if($column['data_type'] === 'bigint'){
-                $class = 'App\\' . ucfirst(strtolower($column['column_name']));
+                $class = 'App\\' . str_replace(" ", "", ucwords(str_replace("_", " ", $column['column_name'])));
                 $results[$index]['options'] = $class::all();
                 $results[$index]['value'] = $temp_model[$column['column_name']];
             }else{

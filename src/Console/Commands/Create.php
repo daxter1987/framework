@@ -43,15 +43,6 @@ class Create extends Command
 
         $table_name = ucfirst(strtolower($table_name));
 
-        if(file_exists('app/' . $table_name . '.php')){
-            echo "Class " . $table_name . " already exists\n";
-            $continue = $this->ask("Class " . $table_name . " already exists. Continue? (y/n)");
-            if($continue == 'n'){
-                echo "Stopped\n";
-                return 'Done';
-            }
-        }
-
         $sql = "select column_name,data_type,is_nullable from information_schema.columns where table_name = '$table_name'";
 
         $results = app('db')->select($sql);
@@ -82,11 +73,21 @@ class Create extends Command
             $class_file = str_replace("//use Illuminate\Database\Eloquent\SoftDeletes;", "", $class_file);
         }
 
+        $class_name = str_replace(" ", "", ucwords(str_replace("_", " ", $table_name)));
+
+        if(file_exists('app/' . $class_name . '.php')){
+            $continue = $this->ask("Class " . $class_name . " already exists. Continue? (y/n)");
+            if($continue == 'n'){
+                echo "Stopped\n";
+                return 'Done';
+            }
+        }
+
         $class_file = str_replace("'\$fillable_attributes'", $fillable_attributes, $class_file);
         $class_file = str_replace("ClassNameLowerCase", strtolower($table_name), $class_file);
-        $class_file = str_replace("ClassName", $table_name, $class_file);
+        $class_file = str_replace("ClassName", $class_name, $class_file);
 
-        $handle = fopen("app/" . $table_name . ".php", 'w') or die('Cannot open file:  '.$table_name); //implicitly creates file
+        $handle = fopen("app/" . $class_name . ".php", 'w') or die('Cannot open file:  '.$class_name); //implicitly creates file
 
         fwrite($handle, $class_file);
 

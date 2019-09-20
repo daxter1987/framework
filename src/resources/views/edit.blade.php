@@ -32,7 +32,7 @@
                         @endforeach
                     </select>
                 </div>
-            @elseif($field['data_type'] === 'int')
+            @elseif($field['data_type'] === 'int' || $field['data_type'] === 'double')
                 <div class="form-group">
                     <label for="{{$field['column_name']}}">{{$field['data_type']}}</label>
                     <input value="{{$field['value']}}" type="number" class="form-control" id="{{$field['column_name']}}" name="{{$field['column_name']}}" placeholder="Enter {{$field['column_name']}}">
