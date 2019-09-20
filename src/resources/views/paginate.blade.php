@@ -28,7 +28,10 @@
     <tbody>
     @foreach($resources as $resource)
         <tr>
-            <td><a class="btn btn-primary" href="/api/framework/edit/{{$model}}/{{ $resource->id }}">Edit</td>
+            <td>
+                <a class="btn btn-primary" href="/api/framework/edit/{{$model}}/{{ $resource->id }}">Edit</a>
+                <a class="btn btn-danger" href="/api/framework/delete/{{$model}}/{{ $resource->id }}">Delete</a>
+            </td>
             <td>{{ $resource->id }}</td>
             @foreach($fields as $field)
             <td>{{$resource->$field}}</td>

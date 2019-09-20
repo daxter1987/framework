@@ -187,6 +187,18 @@ class FrameworkController extends Controller {
         return redirect('/api/framework/view/' . $model);
     }
 
+    public function delete_form($model, $id){
+        return view('Framework::delete', [
+            'id' => $id,
+            'model' => ucfirst(strtolower($model)),
+        ]);
+    }
+
+    public function delete($model, $id){
+        $this->destroy($model, $id);
+        return redirect('/api/framework/view/' . $model);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
