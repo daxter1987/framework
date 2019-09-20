@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Users Data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+</head>
+<body>
+
+<h1>
+    {{$model}}
+</h1>
+
+<a href="/api/framework/create/{{$model}}" class="btn btn-primary">Create</a>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Edit</th>
+        <th>ID</th>
+        @foreach($fields as $field)
+        <th>{{$field}}</th>
+        @endforeach
+    </tr>
+    </thead>
+    <tbody>
+    @foreach($resources as $resource)
+        <tr>
+            <td><a class="btn btn-primary" href="/api/framework/edit/{{$model}}/{{ $resource->id }}">Edit</td>
+            <td>{{ $resource->id }}</td>
+            @foreach($fields as $field)
+            <td>{{$resource->$field}}</td>
+            @endforeach
+        </tr>
+    @endforeach
+    </tbody>
+</table>
+
+</body>
+</html>

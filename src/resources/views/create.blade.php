@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Users Data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+</head>
+<body>
+
+<h1>
+    {{$model}}
+</h1>
+
+<a href="/api/framework/view/{{$model}}" class="btn btn-primary">View</a>
+
+
+<div class="container">
+    <form method="POST" action="/api/framework/submit/{{$model}}" enctype="multipart/form-data">
+        @foreach($fields as $field)
+            @if($field['data_type'] === 'bigint')
+                <div class="form-group">
+                    <label for="{{$field['column_name']}}">{{$field['column_name']}}</label>
+                    <select class="form-control" id="{{$field['column_name']}}" name="{{$field['column_name']}}">
+                        @foreach($field['options'] as $option)
+                            <option value="{{$option['id']}}">
+                                {{$option['title']}}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            @elseif($field['data_type'] === 'int')
+                <div class="form-group">
+                    <label for="{{$field['column_name']}}">{{$field['data_type']}}</label>
+                    <input type="number" class="form-control" id="{{$field['column_name']}}" name="{{$field['column_name']}}" placeholder="Enter {{$field['column_name']}}">
+                </div>
+            @elseif(strpos($field['column_name'], 's3_url'))
+                <div class="form-group">
+                    <label for="{{$field['column_name']}}">{{$field['column_name']}}</label>
+                    <input type="file" class="form-control-file" id="{{$field['column_name']}}" name="{{$field['column_name']}}">
+                </div>
+            @else
+                <div class="form-group">
+                    <label for="{{$field['column_name']}}">{{$field['data_type']}}</label>
+                    <input type="text" class="form-control" id="{{$field['column_name']}}" name="{{$field['column_name']}}" placeholder="Enter {{$field['column_name']}}">
+                </div>
+            @endif
+        @endforeach
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,6 +1,11 @@
 <?php
 
 Route::group(['namespace' => 'daxter1987\Framework\Controllers', 'middleware' => ['api'], 'prefix' => 'api'], function(){
+    Route::get('framework/view/{model}', 'FrameworkController@paginate');
+    Route::get('framework/edit/{model}/{id}', 'FrameworkController@edit');
+    Route::get('framework/create/{model}', 'FrameworkController@create');
+    Route::post('framework/submit/{model}', 'FrameworkController@submit');
+    Route::post('framework/patch/{model}/{id}', 'FrameworkController@patch');
     Route::get('framework/{model}/{id}', 'FrameworkController@show');
     Route::get('framework/{model}', 'FrameworkController@index');
     Route::post('framework/{model}/{id}', 'FrameworkController@update');

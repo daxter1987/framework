@@ -45,7 +45,11 @@ class Create extends Command
 
         if(file_exists('app/' . $table_name . '.php')){
             echo "Class " . $table_name . " already exists\n";
-            return 'Done';
+            $continue = $this->ask("Class " . $table_name . " already exists. Continue? (y/n)");
+            if($continue == 'n'){
+                echo "Stopped\n";
+                return 'Done';
+            }
         }
 
         $sql = "select column_name,data_type,is_nullable from information_schema.columns where table_name = '$table_name'";
