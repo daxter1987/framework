@@ -50,6 +50,7 @@ class Create extends Command
         $class_file = file_get_contents('vendor/daxter1987/framework/src/resources/templates/class_template.php');
         $remove_array = ['id', 'created_at', 'updated_at', 'deleted_at'];
         $fillable_attributes = '';
+        $has_deleted = false;
 
         foreach ($results as $index => $column){
             if(in_array($column->column_name, $remove_array)){
@@ -59,11 +60,10 @@ class Create extends Command
                 }
             }else{
                 $fillable_attributes .= "'" . $column->column_name . "',";
-
             }
         }
 
-        if(!empty($has_deleted)){
+        if($has_deleted){
             $class_file = str_replace("//use Illuminate\Database\Eloquent\SoftDeletes;", "use Illuminate\Database\Eloquent\SoftDeletes;", $class_file);
             $class_file = str_replace("//    use SoftDeletes;", "    use SoftDeletes;", $class_file);
             $class_file = str_replace("//    protected \$dates = ['deleted_at'];", "    protected \$dates = ['deleted_at'];", $class_file);

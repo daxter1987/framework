@@ -58,8 +58,6 @@ class FrameworkController extends Controller {
             }
         }
 
-        Log::info(print_r($results,1));
-
         return view('Framework::create', [
             'fields' => $results,
             'model' => ucfirst(strtolower($model)),

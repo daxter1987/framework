@@ -25,16 +25,16 @@
                     <select class="form-control" id="{{$field['column_name']}}" name="{{$field['column_name']}}">
                         @foreach($field['options'] as $option)
                             @if($field['value'] == $option['id'])
-                                <option value="{{$option['id']}}" selected>{{$option['title']}}</option>
+                                <option value="{{$option['id']}}" selected>{{$option['name']}}{{$option['title']}}</option>
                             @else
-                                <option value="{{$option['id']}}">{{$option['title']}}</option>
+                                <option value="{{$option['id']}}">{{$option['name']}}{{$option['title']}}</option>
                             @endif
                         @endforeach
                     </select>
                 </div>
             @elseif($field['data_type'] === 'int' || $field['data_type'] === 'double')
                 <div class="form-group">
-                    <label for="{{$field['column_name']}}">{{$field['data_type']}}</label>
+                    <label for="{{$field['column_name']}}">{{$field['column_name']}}</label>
                     <input value="{{$field['value']}}" type="number" class="form-control" id="{{$field['column_name']}}" name="{{$field['column_name']}}" placeholder="Enter {{$field['column_name']}}">
                 </div>
             @elseif(strpos($field['column_name'], 's3_url'))
@@ -42,9 +42,16 @@
                     <label for="{{$field['column_name']}}">{{$field['column_name']}}</label>
                     <input type="file" class="form-control-file" id="{{$field['column_name']}}" name="{{$field['column_name']}}">
                 </div>
+            @elseif($field['data_type'] === 'tinyint')
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="{{$field['value']}}" id="{{$field['column_name']}}" name="{{$field['column_name']}}">
+                    <label class="form-check-label" for="{{$field['column_name']}}">
+                        {{$field['column_name']}}
+                    </label>
+                </div>
             @else
                 <div class="form-group">
-                    <label for="{{$field['column_name']}}">{{$field['data_type']}}</label>
+                    <label for="{{$field['column_name']}}">{{$field['column_name']}}</label>
                     <input value="{{$field['value']}}" type="text" class="form-control" id="{{$field['column_name']}}" name="{{$field['column_name']}}" placeholder="Enter {{$field['column_name']}}">
                 </div>
             @endif

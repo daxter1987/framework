@@ -8,7 +8,9 @@
             "email": "daxter1987@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "daxter1987/amazon-helpers": "^1.0.0"
+    },
     "extra": {
         "laravel": {
             "providers": [
