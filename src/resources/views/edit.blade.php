@@ -44,11 +44,20 @@
                     <input type="file" class="form-control-file" id="{{$field['column_name']}}" name="{{$field['column_name']}}">
                 </div>
             @elseif($field['data_type'] === 'tinyint')
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="{{$field['value']}}" id="{{$field['column_name']}}" name="{{$field['column_name']}}">
-                    <label class="form-check-label" for="{{$field['column_name']}}">
-                        {{$field['column_name']}}
-                    </label>
+                <div class="form-group">
+                    <label for="{{$field['column_name']}}">{{$field['column_name']}}</label>
+                    <select class="form-control" id="{{$field['column_name']}}" name="{{$field['column_name']}}">
+                        @if($field['value'] === 1)
+                            <option value="1" selected>True</option>
+                        @else
+                            <option value="1">True</option>
+                        @endif
+                        @if($field['value'] === 0)
+                            <option value="0" selected>False</option>
+                        @else
+                            <option value="0">False</option>
+                        @endif
+                    </select>
                 </div>
             @else
                 <div class="form-group">

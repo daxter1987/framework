@@ -85,7 +85,11 @@ class FrameworkController extends Controller {
                     $url = AmazonS3Helper::UploadtoS3(file_get_contents($request->file($attribute)), 'framework/' . $model . '/' . $request->file($attribute)->hashName(),'image/' . $request->file($attribute)->extension());
                     $resource->$attribute = $url;
                 }else{
-                    $resource->$attribute = $request->$attribute;
+                    if($request->$attribute === 'on'){
+                        $resource->$attribute = 1;
+                    }else{
+                        $resource->$attribute = $request->$attribute;
+                    }
                 }
             }
         }
@@ -171,13 +175,13 @@ class FrameworkController extends Controller {
         $update = [];
         $fillable_attributes = $resource->getFillable();
         foreach($fillable_attributes as $attribute){
-            if(!empty($request->$attribute)){
-                if(strpos($attribute, 's3_url')){
+            if(strpos($attribute, 's3_url')){
+                if(!empty($request->file($attribute))){
                     $url = AmazonS3Helper::UploadtoS3(file_get_contents($request->file($attribute)), 'framework/' . $model . '/' . $request->file($attribute)->hashName(),'image/' . $request->file($attribute)->extension());
                     $update[$attribute] = $url;
-                }else{
-                    $update[$attribute] = $request->$attribute;
                 }
+            }else{
+                $update[$attribute] = $request->$attribute;
             }
         }
         $resource->update($update);
