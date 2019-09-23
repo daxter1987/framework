@@ -16,13 +16,13 @@ class FrameworkController extends Controller {
      */
     public function index(Request $request, $model)
     {
-        $class = 'App\\' . ucfirst(strtolower($model));
+        $class = 'App\\' . ucfirst($model);
         return $class::paginate($request->per_page);
     }
 
     public function paginate(Request $request, $model)
     {
-        $class = 'App\\' . ucfirst(strtolower($model));
+        $class = 'App\\' . ucfirst($model);
         $temp_model = new $class();
         $fillable_attributes = $temp_model->getFillable();
         return view('Framework::paginate', [
@@ -39,7 +39,7 @@ class FrameworkController extends Controller {
      */
     public function create($model)
     {
-        $class = 'App\\' . ucfirst(strtolower($model));
+        $class = 'App\\' . ucfirst($model);
         $temp_model = new $class();
         $fillable_attributes = $temp_model->getFillable();
 
@@ -60,7 +60,7 @@ class FrameworkController extends Controller {
 
         return view('Framework::create', [
             'fields' => $results,
-            'model' => ucfirst(strtolower($model)),
+            'model' => ucfirst($model),
         ]);
     }
 
@@ -76,7 +76,7 @@ class FrameworkController extends Controller {
      */
     public function store(Request $request, $model)
     {
-        $class = 'App\\' . ucfirst(strtolower($model));
+        $class = 'App\\' . ucfirst($model);
         $resource = new $class();
         $fillable_attributes = $resource->getFillable();
         foreach($fillable_attributes as $attribute){
@@ -108,7 +108,7 @@ class FrameworkController extends Controller {
      */
     public function show($model, $id)
     {
-        $class = 'App\\' . ucfirst(strtolower($model));
+        $class = 'App\\' . ucfirst($model);
         $resource = $class::find($id);
         if(empty($resource)){
             return response([
@@ -128,7 +128,7 @@ class FrameworkController extends Controller {
      */
     public function edit($model, $id)
     {
-        $class = 'App\\' . ucfirst(strtolower($model));
+        $class = 'App\\' . ucfirst($model);
         $temp_model = $class::find($id);
         $fillable_attributes = $temp_model->getFillable();
 
@@ -153,7 +153,7 @@ class FrameworkController extends Controller {
         return view('Framework::edit', [
             'id' => $id,
             'fields' => $results,
-            'model' => ucfirst(strtolower($model)),
+            'model' => ucfirst($model),
         ]);
     }
 
@@ -165,7 +165,7 @@ class FrameworkController extends Controller {
      */
     public function update(Request $request, $model, $id)
     {
-        $class = 'App\\' . ucfirst(strtolower($model));
+        $class = 'App\\' . ucfirst($model);
         $resource = $class::find($id);
         if(empty($resource)){
             return response([
@@ -198,7 +198,7 @@ class FrameworkController extends Controller {
     public function delete_form($model, $id){
         return view('Framework::delete', [
             'id' => $id,
-            'model' => ucfirst(strtolower($model)),
+            'model' => ucfirst($model),
         ]);
     }
 
@@ -215,7 +215,7 @@ class FrameworkController extends Controller {
      */
     public function destroy($model, $id)
     {
-        $class = 'App\\' . ucfirst(strtolower($model));
+        $class = 'App\\' . ucfirst($model);
         $resource = $class::find($id);
         if(empty($resource)){
             return response([
