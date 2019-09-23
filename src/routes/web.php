@@ -1,6 +1,7 @@
 <?php
 
 Route::group(['namespace' => 'daxter1987\Framework\Controllers', 'middleware' => ['api'], 'prefix' => 'api'], function(){
+    Route::get('framework', 'FrameworkController@showAvailableModels');
     Route::get('framework/view/{model}', 'FrameworkController@paginate');
     Route::get('framework/edit/{model}/{id}', 'FrameworkController@edit');
     Route::get('framework/create/{model}', 'FrameworkController@create');

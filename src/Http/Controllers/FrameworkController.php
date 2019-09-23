@@ -227,4 +227,19 @@ class FrameworkController extends Controller {
             "data" => $resource
         ], 200);
     }
+
+    public function showAvailableModels(){
+        $dir = './../app';
+        $files = scandir($dir);
+        $classes = [];
+        foreach ($files as $file){
+            if(strpos($file, '.php')){
+                array_push($classes, str_replace('.php','', $file));
+            }
+        }
+
+        return view('Framework::show', [
+            'models' => $classes
+        ]);
+    }
 }
