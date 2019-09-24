@@ -48,6 +48,11 @@
                         {{$field['column_name']}}
                     </label>
                 </div>
+            @elseif($field['data_type'] === 'longtext')
+                <div class="form-group">
+                    <label for="{{$field['column_name']}}">{{$field['column_name']}}</label>
+                    <textarea type="text" class="form-control" id="{{$field['column_name']}}" name="{{$field['column_name']}}" placeholder="Enter {{$field['column_name']}}"></textarea>
+                </div>
             @else
                 <div class="form-group">
                     <label for="{{$field['column_name']}}">{{$field['column_name']}}</label>
